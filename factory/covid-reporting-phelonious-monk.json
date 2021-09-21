@@ -1,0 +1,9 @@
+{
+	"name": "covid-reporting-phelonious-monk",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4c40f3fa-9de9-4d7e-aa57-b8e6c2d5b551",
+		"tenantId": "e15876ff-0120-4621-8590-914d9bf75ce5"
+	}
+}
