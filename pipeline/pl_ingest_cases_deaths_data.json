@@ -48,7 +48,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_cases_deaths_raw_csv_http",
+						"referenceName": "ds_ecdc_raw_csv_http",
 						"type": "DatasetReference",
 						"parameters": {
 							"relativeURL": {
