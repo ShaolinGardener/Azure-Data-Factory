@@ -26,6 +26,14 @@
 		"tr_ingest_population_data_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/bfcdb626-4490-4314-9b81-a4f741bb2b82/resourceGroups/covid-reporting/providers/Microsoft.Storage/storageAccounts/covidpheloniousmonk"
+		},
+		"tr_ingest_hospital_admissions_data_properties_pl_ingest_ecdc_data_parameters_sinkFilename": {
+			"type": "string",
+			"defaultValue": "cloudboxacademy/covid19/raw/main/ecdc_data/hospital_admissions.csv"
+		},
+		"tr_ingest_hospital_admissions_data_properties_pl_ingest_ecdc_data_parameters_relativeBaseURL": {
+			"type": "string",
+			"defaultValue": "https:\\\\github.com"
 		}
 	},
 	"variables": {
@@ -537,6 +545,40 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreportingdl')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tr_ingest_hospital_admissions_data')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pl_ingest_ecdc_data",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"sinkFilename": "[parameters('tr_ingest_hospital_admissions_data_properties_pl_ingest_ecdc_data_parameters_sinkFilename')]",
+							"relativeBaseURL": "[parameters('tr_ingest_hospital_admissions_data_properties_pl_ingest_ecdc_data_parameters_relativeBaseURL')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2021-09-24T14:52:00Z",
+						"timeZone": "UTC",
+						"schedule": {}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_ingest_ecdc_data')]"
 			]
 		}
 	]
